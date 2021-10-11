@@ -1,6 +1,8 @@
 const dbConfig = require('../config/db');
 const Sequelize = require('sequelize');
 const UserSchema = require('./user');
+const MunicipalitiesSchema = require('./municipalities');
+const SitesSchema = require('./sites');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -23,4 +25,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.users = UserSchema(sequelize, Sequelize);
+db.Municipalities = MunicipalitiesSchema(sequelize, Sequelize);
+db.Sites = SitesSchema( sequelize, Sequelize);
+
 module.exports= db;
