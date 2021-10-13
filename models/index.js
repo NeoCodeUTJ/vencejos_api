@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const UserSchema = require('./user');
 const MunicipalitiesSchema = require('./municipalities');
 const SitesSchema = require('./sites');
+const AdressesSchema = require('./adresses');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -27,5 +28,16 @@ db.sequelize = sequelize;
 db.users = UserSchema(sequelize, Sequelize);
 db.Municipalities = MunicipalitiesSchema(sequelize, Sequelize);
 db.Sites = SitesSchema( sequelize, Sequelize);
+db.Adresses = AdressesSchema(sequelize, Sequelize);
+
+//assosiations
+
+//municipalities
+db.Adresses.hasMany(db.Municipalities);
+
+//adresses
+db.Municipalities.belongsTo(db.Adresses);
+
+
 
 module.exports= db;
