@@ -1,6 +1,6 @@
 const dbConfig = require('../config/db');
 const Sequelize = require('sequelize');
-const UserSchema = require('./user');
+const UserSchema = require('./users');
 const MunicipalitiesSchema = require('./municipalities');
 const SitesSchema = require('./sites');
 const AdressesSchema = require('./adresses');
@@ -19,7 +19,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     }
 });
 
-
 sequelize.authenticate().then(() => console.log("Conectado")).catch(err => console.log("error al conectarse" + err))
 
 const db = {};
@@ -27,17 +26,18 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.users = UserSchema(sequelize, Sequelize);
 db.Municipalities = MunicipalitiesSchema(sequelize, Sequelize);
-db.Sites = SitesSchema( sequelize, Sequelize);
+db.Sites = SitesSchema(sequelize, Sequelize);
 db.Adresses = AdressesSchema(sequelize, Sequelize);
 
 //assosiations
 
-//municipalities
+//municipalities to adresses
 db.Adresses.hasMany(db.Municipalities);
 
-//adresses
+//adresses to municipalities
 db.Municipalities.belongsTo(db.Adresses);
 
+//users
 
 
-module.exports= db;
+module.exports = db;

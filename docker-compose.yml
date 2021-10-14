@@ -13,15 +13,18 @@ services:
       MYSQL_DATABASE: "vencejos"
       MYSQL_USER: "admin"
       MYSQL_PASSWORD: "123456a"
+
+  adminer:
+    image: adminer
+    container_name: adminer_mysql
+    restart: always
+    ports:
+      - 8081:8080
+
     volumes: 
       - ./schemas:/var/lib/mysql:rw
-    networks:
-      mysql_network:
-        aliases:
-          - mysql_host
 volumes:
   schemas: {}
-networks:
-  mysql_network:
-    name: mysql_net
-    driver: bridge
+
+
+  
