@@ -1,9 +1,11 @@
 const dbConfig = require('../config/db');
 const Sequelize = require('sequelize');
+
 const UserSchema = require('./users');
 const MunicipalitiesSchema = require('./municipalities');
 const SitesSchema = require('./sites');
 const AdressesSchema = require('./adresses');
+const ShippingsSchema = require('./shippings');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -28,6 +30,7 @@ db.users = UserSchema(sequelize, Sequelize);
 db.Municipalities = MunicipalitiesSchema(sequelize, Sequelize);
 db.Sites = SitesSchema(sequelize, Sequelize);
 db.Adresses = AdressesSchema(sequelize, Sequelize);
+db.Shippings = ShippingsSchema(sequelize, Sequelize);
 
 //assosiations
 

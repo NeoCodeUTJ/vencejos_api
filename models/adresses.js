@@ -10,8 +10,7 @@ module.exports = (sequelize, Sequelize) => {
     id_municipality: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      foreignKey: true,
-      autoincrement: true
+      foreignKey: true
     },
     street: {
       type: Sequelize.STRING,
