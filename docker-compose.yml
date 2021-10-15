@@ -25,6 +25,3 @@ services:
       - ./schemas:/var/lib/mysql:rw
 volumes:
   schemas: {}
-
-
-  

@@ -4,14 +4,14 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       primaryKey: true,
-      autoincrement: true
+      autoincrement: true,
     },
+    // SE AGREGA EL CAMPO EN AUTOMATICO CON LA RELACION
     //FK from municipalities model
-    id_municipality: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      foreignKey: true,
-    },
+    // id_municipality: {
+    //   type: Sequelize.INTEGER,
+    //   allowNull: false,
+    // },
     name: {
       type: Sequelize.STRING,
       allowNull: false
@@ -30,14 +30,16 @@ module.exports = (sequelize, Sequelize) => {
     },
     phone: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     mail: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(64),
       allowNull: false
     },
 

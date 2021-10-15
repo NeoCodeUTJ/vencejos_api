@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Shippings = sequelize.define("shipping", {
+    const Shippings = sequelize.define("shippings", {
         id: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -10,16 +10,16 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        id_shipping_information: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            foreignKey: true,
-        },
-        id_usuario: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            foreignKey: true,
-        },
+        // SE AGREGA EL CAMPO EN AUTOMATICO CON LA RELACION
+        // id_shipping_information: {
+        //     type: Sequelize.INTEGER,
+        //     allowNull: false,
+        // },
+        // SE AGREGA EL CAMPO EN AUTOMATICO CON LA RELACION
+        // id_user: {
+        //     type: Sequelize.INTEGER,
+        //     allowNull: false,
+        // },
         status: {
             type: Sequelize.ENUM(['In Progress', 'On the way', 'Delivered']),
             allowNull: false
@@ -44,5 +44,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: true
         }
-    })
+    });
+    return Shippings;
 }

@@ -6,12 +6,13 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoincrement: true
     },
+    // EL CAMPO SE CREA EN AUTOMATICO CON LA RELACION
     //FK from municipalities model
-    id_municipality: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      foreignKey: true
-    },
+    // id_municipality: {
+    //   type: Sequelize.INTEGER,
+    //   allowNull: false,
+    //   foreignKey: true
+    // },
     street: {
       type: Sequelize.STRING,
       allowNull: false
