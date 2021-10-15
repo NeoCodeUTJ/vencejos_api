@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
       autoincrement: true
     },
     type: {
-      type: Sequelize.STRING,
+      type: Sequelize.ENUM(['origin', 'destination']),
       allowNull: false
     }
 
