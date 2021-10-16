@@ -34,17 +34,17 @@ db.Adresses = AdressesSchema(sequelize, Sequelize);
 db.Shippings = ShippingsSchema(sequelize, Sequelize);
 db.Shippings_information = Shippings_informationSchema(sequelize, Sequelize);
 
+/*
+ *
+ * Relations
+ * 
+*/
+
 // municipalities to adresses
 db.Municipalities.hasMany(db.Adresses);
 
 // adresses to municipalities
 db.Adresses.belongsTo(db.Municipalities);
-
-// users to shippings
-db.Users.hasMany(db.Shippings);
-
-// shippings to users
-db.Shippings.belongsTo(db.Users);
 
 // users to municipality
 db.Municipalities.hasMany(db.Users);
@@ -56,29 +56,55 @@ db.Users.belongsTo(db.Municipalities);
 db.Shippings_information.hasMany(db.Shippings);
 
 // shippings_information to shippings
-db.Shippings.belongsTo(db.Shippings_information);
+db.Shippings.belongsTo(db.Shippings_information, {
+    foreignKey: {
+        name: 'id_shipping_information',
+        allowNull: false
+    }
+});
 
 // shippings_information to origin_site
-db.Sites.hasMany(db.Shippings_information);
+db.Adresses.hasMany(db.Shippings_information);
 
 // origin_site to shippings_information
-db.Shippings_information.belongsTo(db.Sites, {
+db.Shippings_information.belongsTo(db.Adresses, {
     foreignKey: {
         name: 'id_origin_site',
         allowNull: false
     }
 });
 
-// shippings_information to destination_site
-db.Sites.hasMany(db.Shippings_information);
+// shippings_information to origin_site
+db.Adresses.hasMany(db.Shippings_information);
 
-// destination_site to shippings_information
-db.Shippings_information.belongsTo(db.Sites, {
+// origin_site to shippings_information
+db.Shippings_information.belongsTo(db.Adresses, {
     foreignKey: {
         name: 'id_destination_site',
         allowNull: false
     }
 });
 
+// shippings to users
+db.Users.hasMany(db.Shippings);
+
+//users to shippings CLIENT
+db.Shippings.belongsTo(db.Users, {
+    foreignKey: {
+        name: 'id_user_client',
+        allowNull: false
+    }
+});
+
+// shippings to users
+db.Users.hasMany(db.Shippings);
+
+//users to shippings EMPLOYEE
+db.Shippings.belongsTo(db.Users, {
+    foreignKey: {
+        name: 'id_user_employee',
+        allowNull: false
+    }
+});
 
 module.exports = db;
