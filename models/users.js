@@ -4,12 +4,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        role: {
-            type: Sequelize.ENUM(
-                ['admin', 'employee', 'client']
-            ),
-            allowNull: false
-        },
         first_surname: {
             type: Sequelize.STRING,
             allowNull: false
@@ -30,6 +24,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         password: {
             type: Sequelize.STRING(64),
+            allowNull: false
+        },
+        role: {
+            type: Sequelize.ENUM(
+                ['admin', 'employee', 'client']
+            ),
             allowNull: false
         },
         status: {

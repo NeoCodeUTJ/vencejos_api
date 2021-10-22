@@ -22,8 +22,6 @@ const user = {
     password: req.body.password,
     role: req.body.role
 };
-
-console.log(user, 'USERRRR');
   
     // Save User in the database
     Users.create(user)
