@@ -6,7 +6,6 @@ const MunicipalitiesSchema = require('./municipalities');
 const SitesSchema = require('./sites');
 const AdressesSchema = require('./adresses');
 const ShippingsSchema = require('./shippings');
-const Shippings_informationSchema = require('./shippings_information');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -22,7 +21,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     }
 });
 
-sequelize.authenticate().then(() => console.log("Conectado")).catch(err => console.log("error al conectarse" + err))
+//sequelize.authenticate().then(() => console.log("Conectado")).catch(err => console.log("error al conectarse" + err))
 
 const db = {};
 db.Sequelize = Sequelize;
@@ -32,7 +31,6 @@ db.Municipalities = MunicipalitiesSchema(sequelize, Sequelize);
 db.Sites = SitesSchema(sequelize, Sequelize);
 db.Adresses = AdressesSchema(sequelize, Sequelize);
 db.Shippings = ShippingsSchema(sequelize, Sequelize);
-db.Shippings_information = Shippings_informationSchema(sequelize, Sequelize);
 
 /*
  *
@@ -51,39 +49,6 @@ db.Municipalities.hasMany(db.Users);
 
 //municipality to users
 db.Users.belongsTo(db.Municipalities);
-
-// shippings to shippings_information
-db.Shippings_information.hasMany(db.Shippings);
-
-// shippings_information to shippings
-db.Shippings.belongsTo(db.Shippings_information, {
-    foreignKey: {
-        name: 'id_shipping_information',
-        allowNull: false
-    }
-});
-
-// shippings_information to origin_site
-db.Adresses.hasMany(db.Shippings_information);
-
-// origin_site to shippings_information
-db.Shippings_information.belongsTo(db.Adresses, {
-    foreignKey: {
-        name: 'id_origin_site',
-        allowNull: false
-    }
-});
-
-// shippings_information to origin_site
-db.Adresses.hasMany(db.Shippings_information);
-
-// origin_site to shippings_information
-db.Shippings_information.belongsTo(db.Adresses, {
-    foreignKey: {
-        name: 'id_destination_site',
-        allowNull: false
-    }
-});
 
 // shippings to users
 db.Users.hasMany(db.Shippings);
@@ -106,5 +71,27 @@ db.Shippings.belongsTo(db.Users, {
         allowNull: false
     }
 });
+
+// RELACIONES TABLA SITES Y SHIPPINGS
+// id origen
+db.Sites.hasMany(db.Shippings);
+
+db.Shippings.belongsTo(db.Sites, {
+    foreignKey: {
+        name: 'id_origin_site',
+        allowNull: true,
+    }
+});
+
+// id destino 
+db.Sites.hasMany(db.Shippings);
+
+db.Shippings.belongsTo(db.Sites, {
+    foreignKey: {
+        name: 'id_destination_site',
+        allowNull: true,
+    }
+});
+
 
 module.exports = db;

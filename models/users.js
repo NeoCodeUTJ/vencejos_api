@@ -1,17 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
     const Users = sequelize.define("users", {
-        id: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            primaryKey: true,
-            autoincrement: true
-        },
-        // SE AGREGA EL CAMPO EN AUTOMATICO CON LA RELACION
-        // FK from municipalities model
-        // id_municipality: {
-        // type: Sequelize.INTEGER,
-        // allowNull: false,
-        // },
         name: {
             type: Sequelize.STRING,
             allowNull: false
@@ -31,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         phone: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             unique: true
         },

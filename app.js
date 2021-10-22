@@ -1,17 +1,26 @@
 require('dotenv').config()
 const express = require('express');
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const db = require('./models/index');
 const app = express();
-require('./routes/user.route')(app);
+
 var corsOptions = {
     origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
-app.use(bodyParser.urlencoded({extended: true}));
-db.sequelize.sync();
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+
+
+const db = require('./models');
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+});
+
+// routes declarations
+require('./routes/user.route')(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
