@@ -13,14 +13,21 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         phone: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.BIGINT,
+            // validate: {
+            //     min: 10,
+            //     max: 10
+            // },
             allowNull: false,
-            unique: true
+            unique: true,
         },
-        mail: {
+        email: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isEmail: { msg: 'Email is invalid' }
+            }
         },
         password: {
             type: Sequelize.STRING(64),
