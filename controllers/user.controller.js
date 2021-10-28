@@ -15,7 +15,8 @@ const createUser = async (req, res) => {
     phone: req.body.phone,
     email: req.body.email,
     password: req.body.password,
-    role: req.body.role
+    role: req.body.role,
+    id_municipio: req.body.id_municipio
   };
 
   // encrypt constraseña
@@ -27,6 +28,39 @@ const createUser = async (req, res) => {
     .catch(error => res.status(400).send(error))
 }
 
+/**
+ * List Users - GET
+ */
+const getUsers = async (_, res) => {
+  return await Users.findAndCountAll({
+    where: { status: true },
+    attributes: {
+      exclude: ['password', 'municipalityId']
+    }
+  })
+    .then(users => res.status(200).send({
+      msg: 'Found all users',
+      data: users
+    }))
+    .catch(error => res.status(400).send(error));
+}
+
+const getUserById = async (req, res) => {
+  return await Users.findOne({
+    where: { id: req.params.id },
+    attributes: {
+      exclude: ['password', 'municipalityId']
+    }
+  })
+    .then(user => res.status(200).send({
+      msg: 'Found User',
+      data: user
+    }))
+    .catch(error => res.status(400).send(error));
+}
+
 module.exports = {
   createUser,
+  getUsers,
+  getUserById,
 }

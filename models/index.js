@@ -48,7 +48,12 @@ db.Adresses.belongsTo(db.Municipalities);
 db.Municipalities.hasMany(db.Users);
 
 //municipality to users
-db.Users.belongsTo(db.Municipalities);
+db.Users.belongsTo(db.Municipalities, {
+    foreignKey: {
+        name: 'id_municipio',
+        allowNull: false
+    }
+});
 
 // shippings to users
 db.Users.hasMany(db.Shippings);
