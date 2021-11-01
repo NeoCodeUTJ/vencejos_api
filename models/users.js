@@ -14,10 +14,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         phone: {
             type: Sequelize.BIGINT,
-            // validate: {
-            //     min: 10,
-            //     max: 10
-            // },
+            validate: {
+                len: {
+                    args: [10, 10],
+                    msg: "Phone is invalid"
+                }
+            },
             allowNull: false,
             unique: true,
         },
@@ -30,8 +32,14 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         password: {
-            type: Sequelize.STRING(64),
-            allowNull: false
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                len: {
+                    args: [6, 100],
+                    msg: "Password minimum 6 characters"
+                }
+            }
         },
         role: {
             type: Sequelize.ENUM(
