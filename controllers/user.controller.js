@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const bcryptjs = require('bcryptjs');
 
-const Users = require('../models').Users;
+const Users = require('../config/database/models').Users;
 
 /**
  * Create User - POST

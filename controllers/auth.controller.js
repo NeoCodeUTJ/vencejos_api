@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const authConfig = require('../config/auth');
 
-const Users = require('../models').Users;
+const Users = require('../config/database/models').Users;
 
 // Login
 const signIn = async (req, res) => {
@@ -30,7 +30,7 @@ const signIn = async (req, res) => {
 
             } else {
                 res.status(401).json({
-                    msg: 'Unauthorized Access'
+                    msg: 'Unauthorized Access, Password or Email incorrect'
                 })
             }
         }
