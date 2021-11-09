@@ -4,7 +4,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.ENUM(['origin', 'destination']),
       allowNull: false
     }
-
   });
 
   return Sites;

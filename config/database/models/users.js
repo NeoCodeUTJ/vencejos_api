@@ -23,6 +23,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: true,
         },
+        role: {
+            type: Sequelize.ENUM(['admin', 'employee', 'client']),
+            allowNull: false
+        },
         email: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -40,12 +44,6 @@ module.exports = (sequelize, Sequelize) => {
                     msg: "Password minimum 6 characters"
                 }
             }
-        },
-        role: {
-            type: Sequelize.ENUM(
-                ['admin', 'employee', 'client']
-            ),
-            allowNull: false
         },
         status: {
             type: Sequelize.BOOLEAN,
