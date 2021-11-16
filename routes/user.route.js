@@ -1,5 +1,3 @@
-const { validateRole } = require("../middlewares/validateRol");
-
 module.exports = app => {
     const Users = require("../controllers/user.controller");
     const router = require('express').Router();
@@ -9,8 +7,14 @@ module.exports = app => {
 
     // Create a new User
     router.post('/', Users.createUser);
-    router.get('/', Auth('employee'), Users.getUsers);
-    router.get('/:id', Users.getUserById);
+    // Get all Users
+    router.get('/', Auth('admin'), Users.getUsers);
+    // Get User by id
+    router.get('/:id', Auth('admin'), Users.getUserById);
+    // Delete User
+    router.put('/:id', Auth('admin'), Users.deleteUser);
+    // Edit User
+    router.put('/edit/:id', Auth('admin'), Users.updateUser);
 
     app.use('/api/users', router);
 }

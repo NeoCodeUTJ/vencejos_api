@@ -22,8 +22,10 @@ db.sequelize.sync();
 
 // Users
 require('./routes/user.route')(app);
-//Login
+// Login
 require('./routes/auth.route')(app);
+// Shippings
+require('./routes/shipping.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

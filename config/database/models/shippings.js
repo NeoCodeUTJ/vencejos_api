@@ -1,15 +1,19 @@
 module.exports = (sequelize, Sequelize) => {
     const Shippings = sequelize.define("shippings", {
+        delivery_address: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        start_address: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         tracking_code: {
             type: Sequelize.STRING,
             allowNull: false
         },
         status: {
             type: Sequelize.ENUM(['In Progress', 'On the way', 'Delivered']),
-            allowNull: false
-        },
-        quantity: {
-            type: Sequelize.INTEGER,
             allowNull: false
         },
         payment_type: {
@@ -27,6 +31,11 @@ module.exports = (sequelize, Sequelize) => {
         comments: {
             type: Sequelize.STRING,
             allowNull: true
+        },
+        is_active: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         }
     });
     return Shippings;
