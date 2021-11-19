@@ -26,6 +26,8 @@ require('./routes/user.route')(app);
 require('./routes/auth.route')(app);
 // Shippings
 require('./routes/shipping.route')(app);
+// Municipalities
+require('./routes/municipality.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

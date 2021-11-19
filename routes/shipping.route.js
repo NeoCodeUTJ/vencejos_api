@@ -8,6 +8,7 @@ module.exports = app => {
     router.get('/', Auth('admin', 'employee'), Shippings.getShippings);
     router.get('/:id', Auth('admin', 'employee'), Shippings.getShippingById);
     router.put('/:id', Shippings.deleteShipping);
+    router.put('/edit/:id', Shippings.updateShipping);
 
     app.use('/api/shippings', router);
 }

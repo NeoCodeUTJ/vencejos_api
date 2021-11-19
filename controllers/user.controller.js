@@ -90,27 +90,40 @@ const deleteUser = async (req, res) => {
  */
 const updateUser = async (req, res) => {
   const { id } = req.params;
+  const {
+    name,
+    first_surname,
+    second_surname,
+    phone,
+    email,
+    role,
+    id_municipio
+  } = req.body;
   return await Users.update({
-    name: req.body.name,
-    first_surname: req.body.first_surname,
-    second_surname: req.body.second_surname,
-    phone: req.body.phone,
-    email: req.body.email,
-    role: req.body.role,
-    id_municipio: req.body.id_municipio
-  }, { where: { status: true, id: id } })
+    name,
+    first_surname,
+    second_surname,
+    phone,
+    email,
+    role,
+    id_municipio
+  }, { where: { id: id, status: true } })
     .then(user => {
+      if(user == 0){
+        res.status(400).send({
+          msg:'User not found'
+        })
+      }
       res.status(200).send({
         msg: 'User edited',
         data: user
       })
-        .catch(error => {
-          res.status(400).send({
-            error
-          })
-        })
     })
-
+    .catch(error => {
+      res.status(400).send({
+        error
+      })
+    })
 }
 
 module.exports = {

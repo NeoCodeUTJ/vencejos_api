@@ -67,10 +67,56 @@ const deleteShipping = async (req, res) => {
         .catch(error => res.status(400).send(error));
 }
 
+/**
+ * Edit Shipping By Id - PUT
+ */
+const updateShipping = async (req, res) => {
+    const { id } = req.params;
+    const {
+        delivery_address,
+        start_address,
+        tracking_code,
+        status,
+        quantity,
+        payment_type,
+        total_amount,
+        received,
+        comments,
+        id_user_client,
+        id_user_employee } = req.body
+    return await Shippings.update({
+        delivery_address,
+        start_address,
+        tracking_code,
+        status,
+        quantity,
+        payment_type,
+        total_amount,
+        received,
+        comments,
+        id_user_client,
+        id_user_employee
+    }, { where: { id: id, is_active: true } })
+        .then(shipping => {
+            if(shipping == 0){
+                res.status(400).send({
+                  msg:'Shipping not found'
+                })
+              }
+            res.tatus(200).json({
+                msg: 'Shipping Edited',
+                data: shipping
+            })
+        })
+        .catch(error => {
+            res.status(400).json(error)
+        })
+}
 
 module.exports = {
     createShipping,
     getShippingById,
     getShippings,
     deleteShipping,
+    updateShipping,
 }
