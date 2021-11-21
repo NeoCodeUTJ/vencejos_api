@@ -8,10 +8,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        tracking_code: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
         status: {
             type: Sequelize.ENUM(['In Progress', 'On the way', 'Delivered']),
             allowNull: false

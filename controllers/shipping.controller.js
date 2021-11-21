@@ -7,7 +7,6 @@ const createShipping = async (req, res) => {
     const shipping = {
         delivery_address: req.body.delivery_address,
         start_address: req.body.start_address,
-        tracking_code: '12345', //generar código en automatico
         status: req.body.status,
         quantity: req.body.quantity,
         payment_type: req.body.payment_type,

@@ -33,37 +33,48 @@ const createUser = async (req, res) => {
  * List Users - GET
  */
 const getUsers = async (_, res) => {
-  return await Users.findAndCountAll({
+  return await Users.findAll({
     where: { status: true },
     attributes: {
       exclude: ['password', 'municipalityId']
     }
   })
-    .then(users => res.status(200).send({
-      msg: 'Found all users',
-      data: users
-    }))
+    .then(users => {
+      if (users == 0) {
+        res.status(404).send({
+          msg: 'User not found',
+        });
+      }
+      res.status(200).send({
+        msg: 'Found all users',
+        data: users
+      })
+    })
     .catch(error => res.status(400).send(error));
 }
-
-// include: [
-//   {model: Author, as: Author.tableName}
-// ]
 
 /**
  * List User By Id - GET
  */
 const getUserById = async (req, res) => {
   return await Users.findOne({
-    where: { id: req.params.id },
+    where: { id: req.params.id, status: true },
     attributes: {
       exclude: ['password', 'municipalityId']
     }
   })
-    .then(user => res.status(200).send({
-      msg: 'Found User',
-      data: user
-    }))
+    .then(user => {
+      console.log(user)
+      if (user == null) {
+        res.status(404).send({
+          msg: 'User not found',
+        });
+      }
+      res.status(200).send({
+        msg: 'Found User',
+        data: user
+      });
+    })
     .catch(error => res.status(400).send(error));
 }
 
@@ -74,10 +85,17 @@ const deleteUser = async (req, res) => {
   const { id } = req.params;
   return await Users.update({ status: false }, {
     where: { status: true, id: id }
-  }).then(user => res.status(200).send({
-    msg: 'User Deleted',
-    data: user,
-  }))
+  }).then(user => {
+    if (user == 0) {
+      res.status(404).send({
+        msg: 'User not found',
+      });
+    }
+    res.status(200).send({
+      msg: 'User Deleted',
+      data: user,
+    })
+  })
     .catch(error => {
       res.status(400).send({
         error
@@ -109,9 +127,9 @@ const updateUser = async (req, res) => {
     id_municipio
   }, { where: { id: id, status: true } })
     .then(user => {
-      if(user == 0){
+      if (user == 0) {
         res.status(400).send({
-          msg:'User not found'
+          msg: 'User not found'
         })
       }
       res.status(200).send({
