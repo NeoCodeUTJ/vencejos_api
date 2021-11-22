@@ -12,10 +12,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ENUM(['In Progress', 'On the way', 'Delivered']),
             allowNull: false
         },
-        payment_type: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
         total_amount: {
             type: Sequelize.STRING,
             allowNull: false
