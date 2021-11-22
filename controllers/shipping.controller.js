@@ -9,7 +9,6 @@ const createShipping = async (req, res) => {
         start_address: req.body.start_address,
         status: req.body.status,
         quantity: req.body.quantity,
-        payment_type: req.body.payment_type,
         total_amount: req.body.total_amount,
         received: req.body.received,
         comments: req.body.comments,
