@@ -4,7 +4,7 @@ module.exports = app => {
     // este middleware es para que no se haga la peticion si no tiene token
     const { Auth } = require('../middlewares/auth');
 
-    router.post('/', Auth('admin', 'employee'), Shippings.createShipping);
+    router.post('/', Shippings.createShipping);
     router.get('/', Auth('admin', 'employee'), Shippings.getShippings);
     router.get('/:id', Auth('admin', 'employee'), Shippings.getShippingById);
     router.put('/:id', Shippings.deleteShipping);

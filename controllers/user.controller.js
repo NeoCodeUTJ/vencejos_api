@@ -16,11 +16,10 @@ const createUser = async (req, res) => {
     role: req.body.role,
     id_municipio: req.body.id_municipio
   };
-
+  console.log(user);
   // encrypt constraseña
-  const salt = bcryptjs.genSaltSync();
-  user.password = bcryptjs.hashSync(user.password, salt);
-
+  const salt = await bcryptjs.genSaltSync(10);
+  user.password = await bcryptjs.hashSync(user.password, salt);
   return await Users.create(user)
     .then(user => res.status(200).send({
       msg: 'User created',
