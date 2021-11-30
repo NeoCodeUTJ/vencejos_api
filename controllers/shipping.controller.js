@@ -1,4 +1,5 @@
 const Shippings = require('../config/database/models').Shippings;
+const { Op } = require("sequelize");
 
 /**
  * Create Shipping - POST
@@ -96,11 +97,11 @@ const updateShipping = async (req, res) => {
         id_user_employee
     }, { where: { id: id, is_active: true } })
         .then(shipping => {
-            if(shipping == 0){
+            if (shipping == 0) {
                 res.status(400).send({
-                  msg:'Shipping not found'
+                    msg: 'Shipping not found'
                 })
-              }
+            }
             res.tatus(200).json({
                 msg: 'Shipping Edited',
                 data: shipping
@@ -111,10 +112,86 @@ const updateShipping = async (req, res) => {
         })
 }
 
+/**
+ * Change Status DELIVERED Shipping By Id - PUT
+ */
+const deliveredShipping = async (req, res) => {
+    const { id } = req.params;
+    return await Shippings.update({ status: 'Delivered' }, {
+        where: {
+            id: id,
+            [Op.or]: [{ status: 'In Progress' }, { status: 'On the way' }],
+        }
+    }).then(shipping => {
+        if (shipping == 0) {
+            res.status(400).send({
+                msg: 'Shipping not found',
+            })
+        }
+        res.status(200).send({
+            msg: 'Shipping Delivered',
+            data: shipping
+        })
+    })
+        .catch(error => res.status(400).send(error));
+}
+
+/**
+ * Change Status IN PROGRESS Shipping By Id - PUT
+ */
+const progressShipping = async (req, res) => {
+    const { id } = req.params;
+    return await Shippings.update({ status: 'In Progress' }, {
+        where: {
+            id: id,
+            [Op.or]: [{ status: 'Delivered' }, { status: 'On the way' }],
+        }
+    }).then(shipping => {
+        if (shipping == 0) {
+            res.status(400).send({
+                msg: 'Shipping not found',
+            })
+        }
+        res.status(200).send({
+            msg: 'Shipping In Progress',
+            data: shipping
+        })
+    })
+        .catch(error => res.status(400).send(error));
+}
+
+/**
+ * Change Status IN PROGRESS Shipping By Id - PUT
+ */
+ const onthewayShipping = async (req, res) => {
+    const { id } = req.params;
+    return await Shippings.update({ status: 'On the way' }, {
+        where: {
+            id: id,
+            [Op.or]: [{ status: 'Delivered' }, { status: 'In Progress' }],
+        }
+    }).then(shipping => {
+        if (shipping == 0) {
+            res.status(400).send({
+                msg: 'Shipping not found',
+            })
+        }
+        res.status(200).send({
+            msg: 'Shipping On the way',
+            data: shipping
+        })
+    })
+        .catch(error => res.status(400).send(error));
+}
+
+
 module.exports = {
     createShipping,
     getShippingById,
     getShippings,
     deleteShipping,
     updateShipping,
+    deliveredShipping,
+    progressShipping,
+    onthewayShipping,
 }

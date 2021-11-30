@@ -9,6 +9,9 @@ module.exports = app => {
     router.get('/:id', Auth('admin', 'employee'), Shippings.getShippingById);
     router.put('/:id', Shippings.deleteShipping);
     router.put('/edit/:id', Shippings.updateShipping);
+    router.put('/entregado/:id', Shippings.deliveredShipping);
+    router.put('/progreso/:id', Shippings.progressShipping);
+    router.put('/en_camino/:id', Shippings.onthewayShipping);
 
     app.use('/api/shippings', router);
 }
