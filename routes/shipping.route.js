@@ -5,8 +5,8 @@ module.exports = app => {
     const { Auth } = require('../middlewares/auth');
 
     router.post('/', Shippings.createShipping);
-    router.get('/', Auth('admin', 'employee'), Shippings.getShippings);
-    router.get('/:id', Auth('admin', 'employee'), Shippings.getShippingById);
+    router.get('/', Shippings.getShippings);
+    router.get('/:id', Shippings.getShippingById);
     router.put('/:id', Shippings.deleteShipping);
     router.put('/edit/:id', Shippings.updateShipping);
     router.put('/entregado/:id', Shippings.deliveredShipping);
