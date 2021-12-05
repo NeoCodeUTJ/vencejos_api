@@ -28,6 +28,8 @@ require('./routes/auth.route')(app);
 require('./routes/shipping.route')(app);
 // Municipalities
 require('./routes/municipality.route')(app);
+// Reports
+require('./routes/reports.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
