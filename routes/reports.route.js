@@ -8,6 +8,7 @@ module.exports = app => {
     router.get('/OnTheWay', Reports.getReportOntheway);
     router.get('/Delivered', Reports.getReportDelivered);
     router.get('/InProgress', Reports.getReportInProgress);
+    router.get('/allReports', Reports.getReports);
    
 
     app.use('/api/reports', router);

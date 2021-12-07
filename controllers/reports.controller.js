@@ -39,9 +39,17 @@ const getReportOntheway = async (req, res) => {
     });
 }
 
+const getReports = async (req, res) => {
+    return await Shippings.count({
+        
+    }).then(shipping => {
+        res.status(200).send({msg: 'Found Shipping', data: shipping}).catch(error => send.status(400).send(error));
+    });
+}
 
 module.exports = {
     getReportOntheway,
     getReportDelivered,
-    getReportInProgress
+    getReportInProgress,
+    getReports
 }
